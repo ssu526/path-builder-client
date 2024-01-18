@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  height: 100%;
+  width: 300px;
+  background-color: rgb(247, 243, 243);
+  position: relative;
+  overflow: auto;
+  overflow-wrap: break-word;
+  padding: 20px;
+}
+
+/* header */
+.sidebar-header-container {
+  border-bottom: 1px solid rgb(161, 161, 161);
+  word-wrap: break-word;
+  padding-bottom: 20px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sidebar-header img {
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  box-sizing: content-box;
+}
+
+.sidebar-header-buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.sidebar-header-buttons button {
+  border: none;
+  outline: none;
+  flex: 1;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: rgb(216, 214, 214);
+  color: gray;
+}
+
+.sidebar-header-buttons button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+/* categories */
+.progress-category {
+  margin-top: 30px;
+}
+
+.progress-category-name {
+  margin-bottom: 10px;
+}
+
+.no-path-text {
+  color: gray;
+  margin-top: 5px;
+  padding-left: 5px;
+}
+
+/* path name container*/
+.sidebar-pathname-container {
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sidebar-pathname-container:hover {
+  background-color: rgb(209, 209, 209);
+}
+
+.selected {
+  background-color: rgb(209, 209, 209);
+}
+
+.delete-flow-btn {
+  font-size: 20px;
+  visibility: hidden;
+}
+
+.sidebar-pathname-container:hover .delete-flow-btn {
+  visibility: visible;
+}
