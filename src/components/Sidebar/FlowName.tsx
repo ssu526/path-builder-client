@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { deleteFlow, updateFlowDetail } from "../../api/flows_api";
 import { FlowBody, FlowInfo } from "../../models/types";
-import { FlowContext } from "../../context";
+import { FlowContext } from "../../context/context";
 import styles from "../../styles/Sidebar.module.css";
 import { useReactFlow } from "reactflow";
 

@@ -3,7 +3,7 @@ import { signup } from "../api/users_api";
 import { User } from "../models/types";
 import { HttpError } from "../errors/http_errors";
 import { Link, useNavigate } from "react-router-dom";
-import { FlowContext } from "../context";
+import { FlowContext } from "../context/context";
 import styles from "../styles/Auth.module.css";
 
 const Signup = () => {
@@ -54,11 +54,9 @@ const Signup = () => {
 
       <div className={styles["auth-form-container"]}>
         <p className={styles["login-signup-text"]}>Sign Up</p>
-        {errorText && (
-          <div className={styles["error-container"]}>
-            <p className={styles["error-text"]}>{errorText}</p>
-          </div>
-        )}
+        <div className={styles["error-container"]}>
+          {errorText && <p className={styles["error-text"]}>{errorText}</p>}
+        </div>
 
         <form className={styles["auth-form"]} onSubmit={submitFormHandler}>
           <input
@@ -87,7 +85,13 @@ const Signup = () => {
             disabled={isSubmitting}
             type="submit"
           >
-            Sign Up
+            {isSubmitting ? (
+              <div className={styles["loading"]}>
+                <div className="loader"></div>
+              </div>
+            ) : (
+              <p>Sign Up</p>
+            )}
           </button>
         </form>
         <div className={styles["login-signup-message"]}>

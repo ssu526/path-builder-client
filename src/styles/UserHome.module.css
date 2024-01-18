@@ -1,9 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .user-home {
   height: 100vh;
   width: 100vw;
+  overflow: auto;
   display: flex;
+  position: relative;
 }
 
+/* Edit note form outer container*/
 .edit-node-form-container {
   padding: 8px;
   position: fixed;
@@ -13,4 +22,137 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+}
+
+/* Edit note form inner container*/
+.edit-node-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.edit-node-form-title {
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 30px;
+}
+.edit-node-form-title p {
+  margin: 20px;
+  text-align: center;
+}
+
+/* Edit note form - form */
+.edit-node-form form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  padding-right: 15px;
+}
+
+/* Edit note form - topic*/
+.edit-node-form-topic-container {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.edit-node-form-topic-container p {
+  margin-bottom: 10px;
+  color: rgb(90, 89, 89);
+  width: 100%;
+}
+
+.edit-node-form-topic-container input {
+  border: 1px solid lightgray;
+  outline: none;
+  padding: 10px;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 18px;
+}
+
+/* Edit note form - progress*/
+.progress-radio-container {
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-radio-container p {
+  margin-bottom: 10px;
+  color: rgb(90, 89, 89);
+}
+
+.progress-radio {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.progress-radio:hover {
+  font-weight: bold;
+}
+
+.progress-radio input {
+  margin-right: 10px;
+}
+
+/* Edit note form - notes*/
+.node-notes-container {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.node-notes-container p {
+  margin-bottom: 5px;
+  color: rgb(90, 89, 89);
+}
+
+.node-notes-container textarea {
+  border: 1px solid lightgray;
+  outline: none;
+  padding: 10px;
+  border-radius: 3px;
+  width: 100%;
+  height: 300px;
+  font-size: 18px;
+}
+
+/* Edit note form - buttons*/
+.node-notes-buttons {
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.node-notes-buttons button {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  width: 180px;
+  cursor: pointer;
+}
+
+.node-notes-buttons button:hover {
+  background-color: rgb(141, 176, 206);
+  border: 3px solid black;
 }

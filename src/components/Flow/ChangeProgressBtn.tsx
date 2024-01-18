@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlowContext } from "../../context";
+import { FlowContext } from "../../context/context";
 import { PROGRESS } from "../../utils/enums";
 import { updateFlowProgress } from "../../api/flows_api";
 import styles from "../../styles/Flow.module.css";

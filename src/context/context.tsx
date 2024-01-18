@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import { FlowContextType, User } from "./models/types";
-import { getLoggedInUser } from "./api/users_api";
-import { NodeData } from "./components/Flow/ValueNode";
+import { FlowContextType, User } from "../models/types";
+import { getLoggedInUser } from "../api/users_api";
+import { NodeData } from "../components/Flow/ValueNode";
 
 interface FlowContextProps {
   user: User | null;

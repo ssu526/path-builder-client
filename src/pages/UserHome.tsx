@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Flow from "../components/Flow/Flow";
 import Sidebar from "../components/Sidebar/Sidebar";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactFlowProvider } from "reactflow";
-import { FlowContext } from "../context";
-import styles from "../styles/UserHome.module.css";
+import { FlowContext } from "../context/context";
 import EditNode from "../components/Flow/EditNode";
+import styles from "../styles/UserHome.module.css";
 
 const UserHome = () => {
   const { user, showEditForm } = useContext(FlowContext);
@@ -14,42 +14,28 @@ const UserHome = () => {
     showEditForm ? "" : styles["hide-form"]
   }`;
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
-    <div>
-      {user ? (
-        <>
-          {user ? (
-            <div className={styles["user-home"]}>
-              <ReactFlowProvider>
-                <Sidebar />
-                <Flow />
-                {showEditForm && (
-                  <div className={formClasses}>
-                    <EditNode />
-                  </div>
-                )}
-              </ReactFlowProvider>
-            </div>
-          ) : (
-            <div>
-              Please{" "}
-              <span>
-                <Link to="/login">Login</Link>
-              </span>
-              or{" "}
-              <span>
-                <Link to="/signup">Sign Up</Link>
-              </span>
+    user && (
+      <div className={styles["user-home"]}>
+        <ReactFlowProvider>
+          <Sidebar />
+          <Flow />
+          {showEditForm && (
+            <div className={formClasses}>
+              <EditNode />
             </div>
           )}
-        </>
-      ) : (
-        <p>
-          Please <Link to="/login">Login</Link> or{" "}
-          <Link to="/signup">Sign up</Link>
-        </p>
-      )}
-    </div>
+        </ReactFlowProvider>
+      </div>
+    )
   );
 };
 

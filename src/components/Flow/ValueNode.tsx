@@ -1,7 +1,7 @@
 import { PROGRESS } from "../../utils/enums";
 import { Handle, NodeProps, Position, Node } from "reactflow";
 import { useContext } from "react";
-import { FlowContext } from "../../context";
+import { FlowContext } from "../../context/context";
 import styles from "../../styles/Flow.module.css";
 
 export type NodeData = {

@@ -4,8 +4,8 @@ import React, { useContext, useState } from "react";
 import { NodeData } from "./ValueNode";
 import { FlowBody } from "../../models/types";
 import { updateFlowDetail } from "../../api/flows_api";
-import { FlowContext } from "../../context";
-import styles from "../../styles/Flow.module.css";
+import { FlowContext } from "../../context/context";
+import styles from "../../styles/UserHome.module.css";
 
 const EditNode = () => {
   const {
@@ -19,14 +19,14 @@ const EditNode = () => {
   const [title, setTitle] = useState(editNodeData!.title);
   const [notes, setNotes] = useState(editNodeData!.notes);
   const [progress, setProgress] = useState(editNodeData!.progress);
-  const { getNodes, setNodes, toObject } = useReactFlow();
+  const { setNodes, toObject } = useReactFlow();
 
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const nodes: Node<NodeData>[] = getNodes();
+    // const nodes: Node<NodeData>[] = getNodes();
 
-    setNodes((nodes) =>
+    setNodes((nodes: Node<NodeData>[]) =>
       nodes.map((node) => {
         if (node.id === editNodeId) {
           return {

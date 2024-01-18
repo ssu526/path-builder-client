@@ -1,5 +1,4 @@
-import React from "react";
-import { BaseEdge, Edge, EdgeProps, getBezierPath } from "reactflow";
+import { BaseEdge, EdgeProps, getBezierPath } from "reactflow";
 
 // export type PathEdgeType = Edge;
 

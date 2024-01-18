@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import { FlowProvider } from "./context";
+import { FlowProvider } from "./context/context";
 import "./App.css";
 
 function App() {

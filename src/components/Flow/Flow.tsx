@@ -29,7 +29,7 @@ import {
   updateFlowDetail,
   updateFlowName,
 } from "../../api/flows_api";
-import { FlowContext } from "../../context";
+import { FlowContext } from "../../context/context";
 import ChangeProgressBtn from "./ChangeProgressBtn";
 import styles from "../../styles/Flow.module.css";
 import "../../styles/Loader.css";
@@ -49,7 +49,8 @@ const Flow = () => {
   const { currentFlowId, currentFlowName, setUser, setCurrentFlowName } =
     useContext(FlowContext);
   const [isEditingFlowName, setIsEditingFlowName] = useState(false);
-  const [editedName, setEditedName] = useState(currentFlowName);
+  const [editedName, setEditedName] = useState("");
+  const [showEditNameError, setShowEditedNameError] = useState(false);
 
   const {
     addNodes,
@@ -63,6 +64,7 @@ const Flow = () => {
   } = useReactFlow();
 
   useEffect(() => {
+    setShowEditedNameError(false);
     const getFlow = async () => {
       try {
         setShowFlowLoadingError(false);
@@ -82,6 +84,7 @@ const Flow = () => {
     if (currentFlowId) {
       getFlow();
     }
+    setEditedName(currentFlowName!);
   }, [currentFlowId]);
 
   const onConnect: OnConnect = useCallback(async (connection: Connection) => {
@@ -172,23 +175,31 @@ const Flow = () => {
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setShowEditedNameError(false);
     setEditedName(e.target.value);
   };
 
   const updatePathNameHandler = async () => {
-    try {
-      const updatedUser = await updateFlowName(editedName!, currentFlowId!);
-      setCurrentFlowName(editedName);
-      setUser(updatedUser);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsEditingFlowName(false);
+    if (editedName.trim().length === 0) {
+      setShowEditedNameError(true);
+    } else {
+      try {
+        const updatedUser = await updateFlowName(editedName!, currentFlowId!);
+        setCurrentFlowName(editedName);
+        setUser(updatedUser);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsEditingFlowName(false);
+        setShowEditedNameError(false);
+      }
     }
   };
 
   const cancelUpdatePathNameHandler = () => {
     setIsEditingFlowName(false);
+    setShowEditedNameError(false);
+    setEditedName(currentFlowName!);
   };
 
   return (
@@ -214,17 +225,24 @@ const Flow = () => {
           <div className={styles["flow-name-container"]}>
             {isEditingFlowName ? (
               <div className={styles["update-path-name-container"]}>
-                <input
-                  className={styles["path-name-input"]}
-                  type="text"
-                  value={editedName!}
-                  onChange={inputChangeHandler}
-                />
+                <div>
+                  <input
+                    className={styles["path-name-input"]}
+                    type="text"
+                    value={editedName!}
+                    onChange={inputChangeHandler}
+                  />
+                  {showEditNameError && (
+                    <div className={styles["edit-path-name-error"]}>
+                      Please provide a name for the path
+                    </div>
+                  )}
+                </div>
                 <div className={styles["update-path-name-buttons"]}>
                   <div
                     className={[
-                      styles["update-path-name"],
                       styles["update-path-name-button"],
+                      styles["confirm-update-name"],
                     ].join(" ")}
                     onClick={updatePathNameHandler}
                   >
@@ -232,8 +250,8 @@ const Flow = () => {
                   </div>
                   <div
                     className={[
-                      styles["cancel-path-name"],
                       styles["update-path-name-button"],
+                      styles["cancel-update-name"],
                     ].join(" ")}
                     onClick={cancelUpdatePathNameHandler}
                   >
@@ -270,7 +288,7 @@ const Flow = () => {
             fitView
           >
             <Background />
-            <Controls />
+            <Controls showInteractive={false} position={"top-right"} />
             <Panel position="top-left">
               <button
                 onClick={addNewNode}

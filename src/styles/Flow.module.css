@@ -5,8 +5,9 @@
 }
 
 .flow-container {
-  height: 100%;
   width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .no-flow-selected,
@@ -29,7 +30,8 @@
   border-radius: 5px;
 }
 .add-new-node-btn:hover {
-  border: 1px solid black;
+  border: 3px solid black;
+  background-color: white;
 }
 
 /* Flow name and progress buttons */
@@ -39,17 +41,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-      to top,
-      rgba(255, 255, 255, 0.747) 0%,
-      rgba(0, 0, 0, 0.082) 100%
-    ),
-    radial-gradient(
-        at top center,
-        rgba(255, 255, 255, 0.671) 0%,
-        rgba(0, 0, 0, 0.158) 120%
-      )
-      #c5c4c4;
+  background: linear-gradient(to bottom, #c2c1c1, #ffffff);
 }
 
 .path-name {
@@ -57,6 +49,7 @@
   font-size: 35px;
   font-weight: bold;
   padding: 5px;
+  cursor: pointer;
 }
 
 /* Update path name*/
@@ -95,22 +88,32 @@
   margin-left: 20px;
 }
 
-.update-path-name {
+.confirm-update-name {
   color: green;
 }
 
-.cancel-path-name {
+.cancel-update-name {
   color: red;
 }
 
 .update-path-name-button:hover {
-  background-color: gray;
+  background-color: rgb(161, 161, 161);
   border-radius: 50%;
+}
+
+.edit-path-name-error {
+  color: rgb(233, 110, 110);
+  padding-top: 5px;
+  font-weight: bold;
 }
 
 /* Change progress button*/
 .change-progress-container {
   margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .change-progress-btn {
@@ -134,8 +137,9 @@
 .current-progress {
   opacity: 100%;
   color: black;
-  background-color: rgb(161, 218, 161);
   font-weight: bold;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .change-progress-btn:hover:not(.current-progress) {
@@ -147,7 +151,6 @@
 
 /* Flowchart nodes*/
 .node-container {
-  border-radius: 10px;
   visibility: visible;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -156,6 +159,8 @@
   min-width: 150px;
   max-width: 250px;
   max-height: 100px;
+  border-radius: 3px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .node-content {
@@ -175,6 +180,7 @@
   color: gray;
   cursor: pointer;
   visibility: hidden;
+  font-size: 20px;
 }
 
 .node-container:hover .edit-node-symbol {
@@ -190,11 +196,11 @@
 }
 
 .completed {
-  background-color: rgb(193, 221, 243);
+  background-color: rgb(177, 197, 214);
 }
 
 .terminated {
-  background-color: rgb(223, 221, 221);
+  background-color: rgb(218, 215, 215);
 }
 
 /* Drag handle */
@@ -205,144 +211,24 @@
   border: none;
   outline: none;
   opacity: 0%;
+  background-color: gray;
 }
 
 .dragHandle-top {
-  transform: translate(-50%, -30%);
+  transform: translate(-50%, -40%);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
 .dragHandle-bottom {
-  transform: translate(-50%, 30%);
+  transform: translate(-50%, 40%);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
 .dragHandle:hover {
-  opacity: 50%;
+  opacity: 40%;
 }
 
-/* Edit note form */
-.edit-node-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 80%;
-  transform: translate(-50%, -50%);
-  background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 1001;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Edit note form  - title*/
-.edit-node-form-title {
-  width: 100%;
-  border-bottom: 1px solid lightgray;
-  margin-bottom: 30px;
-}
-.edit-node-form-title p {
-  margin: 20px;
-  text-align: center;
-}
-
-/* Edit note form - form */
-.edit-node-form form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 80%;
-}
-
-/* Edit note form - topic*/
-.edit-node-form-topic-container {
-  margin-bottom: 30px;
-  width: 100%;
-}
-
-.edit-node-form-topic-container p {
-  margin-bottom: 10px;
-  color: rgb(90, 89, 89);
-  width: 100%;
-}
-
-.edit-node-form-topic-container input {
-  border: 1px solid lightgray;
-  outline: none;
-  padding: 10px;
-  border-radius: 3px;
-  width: 100%;
-}
-
-/* Edit note form - progress*/
-.progress-radio-container {
-  margin-bottom: 30px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.progress-radio-container p {
-  margin-bottom: 10px;
-  color: rgb(90, 89, 89);
-}
-
-.progress-radio {
-  margin-bottom: 10px;
-}
-
-.progress-radio input {
-  margin-right: 10px;
-}
-
-/* Edit note form - notes*/
-.node-notes-container {
-  margin-bottom: 30px;
-  width: 100%;
-}
-
-.node-notes-container p {
-  margin-bottom: 5px;
-  color: rgb(90, 89, 89);
-}
-
-.node-notes-container textarea {
-  border: 1px solid lightgray;
-  outline: none;
-  padding: 10px;
-  border-radius: 3px;
-  width: 100%;
-  height: 300px;
-}
-
-/* Edit note form - buttons*/
-.node-notes-buttons {
-  margin-bottom: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.node-notes-buttons button {
-  border: none;
-  outline: none;
-  font-size: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  width: 200px;
-  cursor: pointer;
-}
-
-.node-notes-buttons button:hover {
-  background-color: rgb(146, 194, 233);
+@media (max-width: 900px) {
 }

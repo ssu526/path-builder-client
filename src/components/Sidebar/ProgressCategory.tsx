@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import FlowName from "./FlowName";
 import { FlowInfo } from "../../models/types";
-import { FlowContext } from "../../context";
+import { FlowContext } from "../../context/context";
 import styles from "../../styles/Sidebar.module.css";
 
 interface ProgressCategoryProps {

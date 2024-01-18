@@ -1,5 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* border: 1px solid black; */
+}
+
 .auth-container {
+  width: 100vw;
+  height: 100vh;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo-container {
@@ -15,12 +26,11 @@
 .login-signup-text {
   font-size: 50px;
   font-weight: 800;
-  margin-bottom: 20px;
 }
 
 .auth-form-container {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,8 +45,7 @@
 }
 
 .auth-input,
-.auth-btn,
-.error-container {
+.auth-btn {
   width: 350px;
   font-size: 20px;
   border: none;
@@ -52,19 +61,37 @@
 }
 
 .auth-btn {
-  margin-top: 20px;
+  height: 70px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .auth-btn:hover {
-  border: 2px solid black;
-  background-color: rgb(245, 228, 197);
+  border: 5px solid black;
+  background-color: white;
+  font-weight: bold;
 }
 
 .error-container {
-  border: 1px solid rgb(248, 119, 119);
+  margin-bottom: 30px;
+  margin-top: 30px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.error-text {
   background-color: rgb(247, 170, 170);
-  margin-bottom: 20px;
+  width: 350px;
+  font-size: 20px;
+  border: 1px solid rgb(248, 119, 119);
+  outline: none;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .login-signup-message {
