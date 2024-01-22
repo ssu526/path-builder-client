@@ -9,6 +9,8 @@ import ReactFlow, {
   Background,
   Connection,
   Controls,
+  Edge,
+  Node,
   NodeTypes,
   OnConnect,
   OnConnectEnd,
@@ -19,7 +21,7 @@ import ReactFlow, {
   useReactFlow,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import ValueNode, { ValueNodeType } from "./ValueNode";
+import ValueNode, { NodeData, ValueNodeType } from "./ValueNode";
 import { PROGRESS } from "../../utils/enums";
 import { v4 as uuidv4 } from "uuid";
 import PathEdge from "./PathEdge";
@@ -41,8 +43,8 @@ const nodeTypes: NodeTypes = {
 const edgeTypes = { edge: PathEdge };
 
 const Flow = () => {
-  const [initialNodes, setInitialNodes] = useState<any[]>([]);
-  const [initialEdges, setInitialEdges] = useState<any[]>([]);
+  const [initialNodes, setInitialNodes] = useState<Node<NodeData>[]>([]);
+  const [initialEdges, setInitialEdges] = useState<Edge[]>([]);
   const [initialViewPort, setInitialViewPort] = useState<any>({});
   const [isFlowLoading, setIsFlowLoading] = useState(false);
   const [showFlowLoadingError, setShowFlowLoadingError] = useState(false);
@@ -52,16 +54,8 @@ const Flow = () => {
   const [editedName, setEditedName] = useState("");
   const [showEditNameError, setShowEditedNameError] = useState(false);
 
-  const {
-    addNodes,
-    getNodes,
-    addEdges,
-    getEdges,
-    setNodes,
-    setEdges,
-    getNode,
-    toObject,
-  } = useReactFlow();
+  const { addEdges, getEdges, setNodes, setEdges, getNode, toObject } =
+    useReactFlow();
 
   useEffect(() => {
     setShowEditedNameError(false);
@@ -130,8 +124,9 @@ const Flow = () => {
             progress: PROGRESS.PENDING,
           },
         };
-        addNodes(newNode);
-        setNodes(getNodes());
+        // addNodes(newNode);
+        // setNodes(getNodes());
+        setNodes((nds) => nds.concat(newNode));
 
         const edgeId = uuidv4();
         const newEdge = {
@@ -143,7 +138,7 @@ const Flow = () => {
         addEdges(newEdge);
         setEdges(getEdges());
 
-        updateFlowInDB();
+        await updateFlowInDB();
 
         connectingNodeId.current = null;
       }
@@ -164,9 +159,9 @@ const Flow = () => {
         progress: PROGRESS.PENDING,
       },
     };
-    addNodes(newNode);
-    setNodes(getNodes());
-    updateFlowInDB();
+
+    setNodes((nds) => nds.concat(newNode));
+    await updateFlowInDB();
   };
 
   const updateFlowInDB = async () => {

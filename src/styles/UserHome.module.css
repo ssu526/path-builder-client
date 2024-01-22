@@ -12,6 +12,14 @@
   position: relative;
 }
 
+.please-login-container {
+  width: 100wv;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Edit note form outer container*/
 .edit-node-form-container {
   padding: 8px;

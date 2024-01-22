@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import Flow from "../components/Flow/Flow";
 import Sidebar from "../components/Sidebar/Sidebar";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactFlowProvider } from "reactflow";
 import { FlowContext } from "../context/context";
 import EditNode from "../components/Flow/EditNode";
@@ -14,28 +14,23 @@ const UserHome = () => {
     showEditForm ? "" : styles["hide-form"]
   }`;
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, []);
-
-  return (
-    user && (
-      <div className={styles["user-home"]}>
-        <ReactFlowProvider>
-          <Sidebar />
-          <Flow />
-          {showEditForm && (
-            <div className={formClasses}>
-              <EditNode />
-            </div>
-          )}
-        </ReactFlowProvider>
-      </div>
-    )
+  return user ? (
+    <div className={styles["user-home"]}>
+      <ReactFlowProvider>
+        <Sidebar />
+        <Flow />
+        {showEditForm && (
+          <div className={formClasses}>
+            <EditNode />
+          </div>
+        )}
+      </ReactFlowProvider>
+    </div>
+  ) : (
+    <div className={styles["please-login-container"]}>
+      Please&nbsp;<Link to="/login">login</Link>&nbsp;or&nbsp;
+      <Link to="/signup">Sign up</Link>
+    </div>
   );
 };
 

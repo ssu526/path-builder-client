@@ -13,8 +13,13 @@ const Sidebar = () => {
   const [inProgressFlows, setInProgressFlows] = useState<FlowInfo[]>([]);
   const [completedFlows, setCompletedFlows] = useState<FlowInfo[]>([]);
   const [terminatedFlows, setTerminatedFlows] = useState<FlowInfo[]>([]);
-  const { user, setUser, setCurrentFlowId, setCurrentFlowName } =
-    useContext(FlowContext);
+  const {
+    user,
+    setUser,
+    setCurrentFlowId,
+    setCurrentFlowName,
+    setCurrentFlowProgress,
+  } = useContext(FlowContext);
   const [hideSidebar, setHideSidebar] = useState(false);
   const navigate = useNavigate();
 
@@ -46,6 +51,10 @@ const Sidebar = () => {
       setUser(updatedUser);
       setCurrentFlowId(newFlowId);
       setCurrentFlowName(result.flowName);
+      const progress = updatedUser.flows.find(
+        (flow) => flow.flowId === newFlowId
+      )?.progress;
+      setCurrentFlowProgress(progress ?? PROGRESS.PENDING);
     } catch (error) {
       console.log(error);
     }
