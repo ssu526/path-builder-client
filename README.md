@@ -1,4 +1,4 @@
-# Path Builder
+# Path Builder - Frontend
 An app that allows users to create learning paths via a flowchart and track their progress.
 
 [Back-end Source Code](https://github.com/ssu526/path-builder-backend) 
